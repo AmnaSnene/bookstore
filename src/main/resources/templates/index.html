@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+	<div class="col-xs-9">
+		<div th:if="${emptyList}">
+			<h5 style="font-style: italic;">Oops, no result is found. Try
+				something else or try again later.</h5>
+		</div>
+
+		<table border="0" id="bookList">
+			<thead>
+			<tr>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr class="book-item" data-th-each="book : ${bookList}" >
+				<td>
+					<div th:if="${book != null}">
+						<div class="row" style="margin-bottom: 50px;">
+							<div class="col-xs-3">
+								<a th:href="@{/bookDetail?id=}+${book.id}"><img
+										class="img-responsive shelf-book"
+										th:src="${book.imgUrl}" /></a>
+							</div>
+							<div class="col-xs-9" >
+								<a th:href="@{/bookDetail?id=}+${book.id}"><h4
+										th:text="${book.title}"></h4></a>
+								<p th:text="${book.author}"></p>
+								<br/>
+								<p th:utext="${#strings.abbreviate(book.description, 1000)}"></p>
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+	
+
+</body>
+</html>
